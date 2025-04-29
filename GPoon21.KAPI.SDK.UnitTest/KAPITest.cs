@@ -37,14 +37,16 @@ public class KAPITest {
         Assert.NotNull(partnerSecret);
         string? merchantId = Environment.GetEnvironmentVariable(nameof(merchantId));
         Assert.NotNull(merchantId);
-
+        string? partnerUID = Environment.GetEnvironmentVariable(nameof(partnerUID));
+        Assert.NotNull(partnerUID);
+        
         // First, get the access token
         KAPI.CustomerInfo credentials = await KAPI.GetClientCredentials(customerId, customerSecret);
         Assert.NotNull(credentials.AccessToken);
 
         // Create QR request
         KAPI.QRRequest qrRequest = new() {
-            PartnerTransactionUid = Guid.NewGuid().ToString("N"),
+            PartnerTransactionUid = partnerUID,
             PartnerId = partnerId,
             PartnerSecret = partnerSecret,
             MerchantId = merchantId,
