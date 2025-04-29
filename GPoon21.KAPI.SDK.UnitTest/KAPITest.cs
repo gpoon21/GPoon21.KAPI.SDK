@@ -38,7 +38,7 @@ public class KAPITest {
             await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderModifier.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
-        // Create QR request with specified parameters
+        // Create a QR request with specified parameters
         KAPI.QRRequest qrRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0001",
             PartnerId = "PTR1051673",
@@ -74,19 +74,19 @@ public class KAPITest {
         string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
         Assert.NotNull(customerSecret);
 
-        // Get access token
+        // Get an access token
         KAPI.CustomerInfo credentials =
             await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderModifier.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
-        // Create QR request with specified parameters
+        // Create a QR request with specified parameters
         KAPI.QRRequest qrRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0001-2",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
             MerchantId = "KB102057149704",
             QRType = "4",                // QR Credit Card type
-            TransactionAmount = 100.00m, // Example amount, can be modified as needed
+            TransactionAmount = 100.00m, // Example amount can be modified as needed
             TransactionCurrencyCode = "THB",
             Reference1 = "INV001",
             Reference2 = "HELLOWORLD",
@@ -94,7 +94,7 @@ public class KAPITest {
             Reference4 = "INV001"
         };
 
-        // Request QR code with specified environment
+        // Request QR code with a specified environment
         KAPI.QRResponse result =
             await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderModifier.Test("QR003"));
 
