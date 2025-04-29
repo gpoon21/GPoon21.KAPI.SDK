@@ -30,6 +30,9 @@ public static class KAPI {
         public required string TokenType { get; init; }
     }
 
+    /// <summary>
+    /// API documentation: https://apiportal.kasikornbank.com/product/public/All/QR%20Payment/Documentation/Identity%20confirmation
+    /// </summary>
     public static async Task<CustomerInfo> GetClientCredentials(string consumerId, string consumerSecret) {
         using HttpClient httpClient = new();
         // OAuth token endpoint
@@ -57,8 +60,8 @@ public static class KAPI {
             throw new ApplicationException(
                 $"Failed to get token. Status: {response.StatusCode}, Response: {responseBody}");
         }
-        
-        return JsonSerializer.Deserialize<CustomerInfo>(responseBody)!; 
+
+        return JsonSerializer.Deserialize<CustomerInfo>(responseBody)!;
     }
 
 }
