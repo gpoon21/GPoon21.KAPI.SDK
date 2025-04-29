@@ -50,7 +50,7 @@ public static partial class KAPI {
                 TerminalId = request.TerminalId,
                 OriginalPartnerTransactionUid = request.OriginalPartnerTransactionUid,
                 TransactionNumber = request.TransactionNumber,
-                RequestDateTime = DateTime.UtcNow.ToString("o")
+                RequestDateTime = DateTimeOffset.Now.ToString("o")
             };
         }
     }
