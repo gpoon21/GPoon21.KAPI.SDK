@@ -64,13 +64,14 @@ public static partial class KAPI {
     /// <returns>QR response containing the QR code and image</returns>
     public static async Task<QRResponse> RequestQR(QRRequest request, string accessToken) {
         using HttpClient httpClient = new();
-        string apiUrl = "https://openapi-sandbox.kasikornbank.com/v2/qr/request";
+        string apiUrl = "https://openapi-sandbox.kasikornbank.com/v1/qrpayment/request";
 
         // Create HTTP request
         HttpRequestMessage httpRequest = new(HttpMethod.Post, apiUrl);
         httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         httpRequest.Headers.Add("x-test-mode", "true");
-
+        httpRequest.Headers.Add("env-id", "QR002");
+        
         // Set JSON body
         string jsonContent = JsonSerializer.Serialize(request);
         httpRequest.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
