@@ -32,7 +32,10 @@ public static partial class KAPI {
     /// <summary>
     /// API documentation: https://apiportal.kasikornbank.com/product/public/All/QR%20Payment/Documentation/Identity%20confirmation
     /// </summary>
-    public static async Task<CustomerInfo> GetClientCredentials(string consumerId, string consumerSecret) {
+    public static async Task<CustomerInfo> GetClientCredentials(
+        string consumerId,
+        string consumerSecret,
+        IHeaderModifier? headerModifier = null) {
         using HttpClient httpClient = new();
         // OAuth token endpoint
         string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
@@ -44,8 +47,8 @@ public static partial class KAPI {
         // Step 2: Create HTTP request
         HttpRequestMessage request = new(HttpMethod.Post, tokenUrl);
         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
-        request.Headers.Add("x-test-mode", "true");
-        request.Headers.Add("env-id", "OAUTH2");
+        headerModifier ??= new IHeaderModifier.Default();
+        headerModifier.Modify(request.Headers);
 
         // Step 3: Set form body
         request.Content = new StringContent("grant_type=client_credentials", Encoding.UTF8,
