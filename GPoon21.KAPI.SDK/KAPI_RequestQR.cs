@@ -106,6 +106,9 @@ public static partial class KAPI {
         public required string[] SourceOfFunds { get; init; }
     }
 
+    /// <summary>
+    /// API documentation: https://apiportal.kasikornbank.com/product/public/All/QR%20Payment/Documentation/Request%20QR
+    /// </summary>
     public static async Task<QRResponse> RequestQR(
         QRRequest request,
         string accessToken,
