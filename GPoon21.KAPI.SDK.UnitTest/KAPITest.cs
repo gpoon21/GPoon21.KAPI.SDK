@@ -44,7 +44,7 @@ public class KAPITest {
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
             MerchantId = "KB102057149704",
-            QRType = "3",
+            QRType = QRType.ThaiQR,
             TransactionAmount = 100.00m,
             TransactionCurrencyCode = "THB",
             Reference1 = "INV001",
@@ -85,7 +85,7 @@ public class KAPITest {
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
             MerchantId = "KB102057149704",
-            QRType = "4",                // QR Credit Card type
+            QRType = QRType.CreditCard,                // QR Credit Card type
             TransactionAmount = 100.00m, // Example amount can be modified as needed
             TransactionCurrencyCode = "THB",
             Reference1 = "INV001",
