@@ -62,16 +62,19 @@ public static partial class KAPI {
     /// <param name="request">The QR request details</param>
     /// <param name="accessToken">The OAuth access token obtained from GetClientCredentials</param>
     /// <returns>QR response containing the QR code and image</returns>
-    public static async Task<QRResponse> RequestQR(QRRequest request, string accessToken) {
+    public static async Task<QRResponse> RequestQR(
+        QRRequest request,
+        string accessToken,
+        IHeaderModifier? headerModifier = null) {
         using HttpClient httpClient = new();
         string apiUrl = "https://openapi-sandbox.kasikornbank.com/v1/qrpayment/request";
 
         // Create HTTP request
         HttpRequestMessage httpRequest = new(HttpMethod.Post, apiUrl);
         httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-        httpRequest.Headers.Add("x-test-mode", "true");
-        httpRequest.Headers.Add("env-id", "QR002");
-        
+        headerModifier ??= new IHeaderModifier.Default();
+        headerModifier.Modify(httpRequest.Headers);
+
         // Set JSON body
         string jsonContent = JsonSerializer.Serialize(request);
         httpRequest.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
