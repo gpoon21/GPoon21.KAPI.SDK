@@ -19,37 +19,31 @@ public class KAPITest {
         string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
         Assert.NotNull(customerSecret);
 
-        KAPI.CustomerInfo result = await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderModifier.Test("OAUTH2"));
+        KAPI.CustomerInfo result =
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderModifier.Test("OAUTH2"));
         _outputHelper.WriteLine(JsonSerializer.Serialize(result));
         Assert.NotNull(result);
     }
 
     [Fact]
     public async Task GenerateThaiQRCode_Success() {
-        // Get required environment variables
+        // Get required credentials
         string? customerId = Environment.GetEnvironmentVariable(nameof(customerId));
         Assert.NotNull(customerId);
         string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
         Assert.NotNull(customerSecret);
-        string? partnerId = Environment.GetEnvironmentVariable(nameof(partnerId));
-        Assert.NotNull(partnerId);
-        string? partnerSecret = Environment.GetEnvironmentVariable(nameof(partnerSecret));
-        Assert.NotNull(partnerSecret);
-        string? merchantId = Environment.GetEnvironmentVariable(nameof(merchantId));
-        Assert.NotNull(merchantId);
-        string? partnerUID = Environment.GetEnvironmentVariable(nameof(partnerUID));
-        Assert.NotNull(partnerUID);
-        
-        // First, get the access token
-        KAPI.CustomerInfo credentials = await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderModifier.Test("OAUTH2"));
+
+        // Get required environment variables
+        KAPI.CustomerInfo credentials =
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderModifier.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
-        // Create QR request
+        // Create QR request with specified parameters
         KAPI.QRRequest qrRequest = new() {
-            PartnerTransactionUid = partnerUID,
-            PartnerId = partnerId,
-            PartnerSecret = partnerSecret,
-            MerchantId = merchantId,
+            PartnerTransactionUid = "PARTNERTEST0001",
+            PartnerId = "PTR1051673",
+            PartnerSecret = "d4bded59200547bc85903574a293831b",
+            MerchantId = "KB102057149704",
             QRType = "3",
             TransactionAmount = 100.00m,
             TransactionCurrencyCode = "THB",
@@ -60,7 +54,8 @@ public class KAPITest {
         };
 
         // Request QR code
-        KAPI.QRResponse result = await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderModifier.Test("QR002"));
+        KAPI.QRResponse result =
+            await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderModifier.Test("QR002"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result));
@@ -70,5 +65,6 @@ public class KAPITest {
         Assert.Equal(qrRequest.PartnerTransactionUid, result.PartnerTransactionUid);
         Assert.NotNull(result.QRCode);
     }
+
 
 }
