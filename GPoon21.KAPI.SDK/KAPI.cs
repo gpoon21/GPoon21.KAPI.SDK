@@ -22,6 +22,13 @@ public static partial class KAPI {
             IHeaderMode? headerModifier = null) {
             return KAPI.RequestQR(request, _customerInfo.AccessToken, headerModifier);
         }
+
+        public Task<QRInquiryResponse> InquiryQR(
+            QRInquiryRequest request,
+            IHeaderMode? headerModifier = null) {
+            return KAPI.InquiryQR(request, _customerInfo.AccessToken, headerModifier);
+        }
+
     }
 
     public interface IHeaderMode {
