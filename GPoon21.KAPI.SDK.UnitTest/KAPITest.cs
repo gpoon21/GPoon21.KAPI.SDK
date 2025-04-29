@@ -21,7 +21,7 @@ public class KAPITest {
 
         KAPI.CustomerInfo result =
             await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderMode.Test("OAUTH2"));
-        _outputHelper.WriteLine(JsonSerializer.Serialize(result));
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
         Assert.NotNull(result);
     }
 
@@ -58,7 +58,7 @@ public class KAPITest {
             await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderMode.Test("QR002"));
 
         // Log the response
-        _outputHelper.WriteLine(JsonSerializer.Serialize(result), new JsonSerializerOptions() { WriteIndented = true });
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
 
         // Verify response
         Assert.NotNull(result);
@@ -85,7 +85,7 @@ public class KAPITest {
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
             MerchantId = "KB102057149704",
-            QRType = QRType.CreditCard,                // QR Credit Card type
+            QRType = QRType.CreditCard,  // QR Credit Card type
             TransactionAmount = 100.00m, // Example amount can be modified as needed
             TransactionCurrencyCode = "THB",
             Reference1 = "INV001",
@@ -99,7 +99,7 @@ public class KAPITest {
             await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderMode.Test("QR003"));
 
         // Log the response
-        _outputHelper.WriteLine(JsonSerializer.Serialize(result), new JsonSerializerOptions() { WriteIndented = true });
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
 
         // Verify response
         Assert.NotNull(result);
@@ -134,7 +134,7 @@ public class KAPITest {
             await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IHeaderMode.Test("QR004"));
 
         // Log the response
-        _outputHelper.WriteLine(JsonSerializer.Serialize(result), new JsonSerializerOptions() { WriteIndented = true });
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
 
         // Verify response
         Assert.NotNull(result);
