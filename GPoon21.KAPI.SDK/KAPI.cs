@@ -4,9 +4,9 @@ using System.Text;
 namespace GPoon21.KAPI.SDK;
 
 public static class KAPI {
-    
+
     public static async Task<string> GetAccessTokenAsync(string consumerId, string consumerSecret) {
-        using HttpClient httpClient = new(); 
+        using HttpClient httpClient = new();
         // OAuth token endpoint
         string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
 
@@ -15,7 +15,7 @@ public static class KAPI {
         string base64Credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
 
         // Step 2: Create HTTP request
-        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, tokenUrl);
+        HttpRequestMessage request = new(HttpMethod.Post, tokenUrl);
         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
         request.Headers.Add("x-test-mode", "true");
         request.Headers.Add("env-id", "OAUTH2");
@@ -25,8 +25,8 @@ public static class KAPI {
             "application/x-www-form-urlencoded");
 
         // Step 4: Send request
-        var response = await httpClient.SendAsync(request);
-        var responseBody = await response.Content.ReadAsStringAsync();
+        HttpResponseMessage response = await httpClient.SendAsync(request);
+        string responseBody = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode) {
             throw new ApplicationException(
