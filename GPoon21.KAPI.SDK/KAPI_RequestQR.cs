@@ -105,7 +105,7 @@ public static partial class KAPI {
         public required string QRCode { get; init; }
 
         [JsonPropertyName("sof")]
-        [JsonConverter(typeof(ReturnedQRTypeJsonConverter))]
+        [JsonConverter(typeof(ReturnedQRTypeArrayJsonConverter))]
         public required ReturnedQRType[] SourceOfFunds { get; init; }
     }
 
