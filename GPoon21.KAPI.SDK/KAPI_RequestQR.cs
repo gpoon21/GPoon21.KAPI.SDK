@@ -12,7 +12,7 @@ public static partial class KAPI {
         public required string PartnerSecret { get; init; }
         public required string MerchantId { get; init; }
         public string? TerminalId { get; init; }
-        public required string QRType { get; init; }
+        public required QRType QRType { get; init; }
         public required decimal TransactionAmount { get; init; }
         public required string TransactionCurrencyCode { get; init; }
         public required string Reference1 { get; init; }
@@ -38,7 +38,8 @@ public static partial class KAPI {
         public string? TerminalId { get; init; }
 
         [JsonPropertyName("qrType")]
-        public required string QRType { get; init; }
+        [JsonConverter(typeof(QRTypeJsonConverter))]
+        public required QRType QRType { get; init; }
 
         [JsonPropertyName("txnAmount")]
         public required decimal TransactionAmount { get; init; }
@@ -75,7 +76,7 @@ public static partial class KAPI {
                 Reference2 = request.Reference2,
                 Reference3 = request.Reference3,
                 Reference4 = request.Reference4,
-                RequestDateTime = DateTime.UtcNow.ToString("o")
+                RequestDateTime = DateTimeOffset.Now.ToString("o")
             };
         }
     }
@@ -88,7 +89,8 @@ public static partial class KAPI {
         public required string PartnerId { get; init; }
 
         [JsonPropertyName("statusCode")]
-        public required string StatusCode { get; init; }
+        [JsonConverter(typeof(StatusCodeJsonConverter))]
+        public required StatusCode StatusCode { get; init; }
 
         [JsonPropertyName("errorCode")]
         public string? ErrorCode { get; init; }
@@ -103,7 +105,8 @@ public static partial class KAPI {
         public required string QRCode { get; init; }
 
         [JsonPropertyName("sof")]
-        public required string[] SourceOfFunds { get; init; }
+        [JsonConverter(typeof(ReturnedQRTypeJsonConverter))]
+        public required ReturnedQRType[] SourceOfFunds { get; init; }
     }
 
     /// <summary>
