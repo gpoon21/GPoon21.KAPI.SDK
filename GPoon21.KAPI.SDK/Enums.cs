@@ -1,11 +1,25 @@
-﻿namespace GPoon21.KAPI.SDK;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
+namespace GPoon21.KAPI.SDK;
+
+[JsonConverter(typeof(StatusCodeJsonConverter))]
 public enum StatusCode {
     /// <summary>Success</summary>
     Success = 0,
 
     /// <summary>Error</summary>
     Error = 10
+}
+
+public class StatusCodeJsonConverter : JsonConverter<StatusCode> {
+    public override StatusCode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
+        return StatusCodeExtensions.ParseStatusCode(reader.GetString()!);
+    }
+
+    public override void Write(Utf8JsonWriter writer, StatusCode value, JsonSerializerOptions options) {
+        writer.WriteStringValue(value.ToCode());
+    }
 }
 
 public static class StatusCodeExtensions {
@@ -22,12 +36,23 @@ public static class StatusCodeExtensions {
     };
 }
 
+[JsonConverter(typeof(QRTypeJsonConverter))]
 public enum QRType {
     /// <summary>Thai QR - Text type</summary>
     ThaiQR = 3,
 
     /// <summary>Credit Card - Text type</summary>
     CreditCard = 4
+}
+
+public class QRTypeJsonConverter : JsonConverter<QRType> {
+    public override QRType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
+        return QRTypeExtensions.ParseQRType(reader.GetString()!);
+    }
+
+    public override void Write(Utf8JsonWriter writer, QRType value, JsonSerializerOptions options) {
+        writer.WriteStringValue(value.ToCode());
+    }
 }
 
 public static class QRTypeExtensions {
@@ -44,12 +69,23 @@ public static class QRTypeExtensions {
     };
 }
 
+[JsonConverter(typeof(ReturnedQRTypeJsonConverter))]
 public enum ReturnedQRType {
     /// <summary>Thai QR - Text type</summary>
     ThaiQR = 1,
 
     /// <summary>Credit Card - Text type</summary>
     CreditCard = 2
+}
+
+public class ReturnedQRTypeJsonConverter : JsonConverter<ReturnedQRType> {
+    public override ReturnedQRType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
+        return ReturnedQRTypeExtensions.ParseReturnedQRType(reader.GetString()!);
+    }
+
+    public override void Write(Utf8JsonWriter writer, ReturnedQRType value, JsonSerializerOptions options) {
+        writer.WriteStringValue(value.ToCode());
+    }
 }
 
 public static class ReturnedQRTypeExtensions {
@@ -66,6 +102,7 @@ public static class ReturnedQRTypeExtensions {
     };
 }
 
+[JsonConverter(typeof(TransactionStatusJsonConverter))]
 public enum TransactionStatus {
     /// <summary>Transaction has been paid.</summary>
     Paid,
@@ -81,6 +118,17 @@ public enum TransactionStatus {
 
     /// <summary>Transaction is voided after it is paid.</summary>
     Voided
+}
+
+public class TransactionStatusJsonConverter : JsonConverter<TransactionStatus> {
+    public override TransactionStatus Read(ref Utf8JsonReader reader, Type typeToConvert,
+        JsonSerializerOptions options) {
+        return TransactionStatusExtensions.ParseTransactionStatus(reader.GetString()!);
+    }
+
+    public override void Write(Utf8JsonWriter writer, TransactionStatus value, JsonSerializerOptions options) {
+        writer.WriteStringValue(value.ToCode());
+    }
 }
 
 public static class TransactionStatusExtensions {
@@ -101,4 +149,6 @@ public static class TransactionStatusExtensions {
         "VOIDED"    => TransactionStatus.Voided,
         _           => throw new ArgumentException($"Invalid transaction status: {code}", nameof(code))
     };
+
+
 }
