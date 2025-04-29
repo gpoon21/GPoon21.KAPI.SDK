@@ -25,7 +25,7 @@ public class KAPITest {
     }
 
     [Fact]
-    public async Task RequestQR_Success() {
+    public async Task GenerateThaiQRCode_Success() {
         // Get required environment variables
         string? customerId = Environment.GetEnvironmentVariable(nameof(customerId));
         Assert.NotNull(customerId);
