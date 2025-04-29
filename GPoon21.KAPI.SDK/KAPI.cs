@@ -30,7 +30,7 @@ public static class KAPI {
         public required string TokenType { get; init; }
     }
 
-    public static async Task<CustomerInfo> GetAccessTokenAsync(string consumerId, string consumerSecret) {
+    public static async Task<CustomerInfo> GetClientCredentials(string consumerId, string consumerSecret) {
         using HttpClient httpClient = new();
         // OAuth token endpoint
         string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
