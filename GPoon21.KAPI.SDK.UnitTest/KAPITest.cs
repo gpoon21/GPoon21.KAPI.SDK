@@ -41,7 +41,7 @@ public class KAPITest {
         Assert.NotNull(partnerUID);
         
         // First, get the access token
-        KAPI.CustomerInfo credentials = await KAPI.GetClientCredentials(customerId, customerSecret);
+        KAPI.CustomerInfo credentials = await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderModifier.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create QR request
