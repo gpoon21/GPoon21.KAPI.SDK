@@ -58,7 +58,7 @@ public class KAPITest {
             await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderModifier.Test("QR002"));
 
         // Log the response
-        _outputHelper.WriteLine(JsonSerializer.Serialize(result));
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result), new JsonSerializerOptions() {WriteIndented = true});
 
         // Verify response
         Assert.NotNull(result);
@@ -99,7 +99,7 @@ public class KAPITest {
             await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderModifier.Test("QR003"));
 
         // Log the response
-        _outputHelper.WriteLine(JsonSerializer.Serialize(result));
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result), new JsonSerializerOptions() { WriteIndented = true });
 
         // Verify response
         Assert.NotNull(result);
@@ -122,11 +122,11 @@ public class KAPITest {
 
         // Create a QR inquiry request with specified parameters
         KAPI.QRInquiryRequest inquiryRequest = new() {
-            PartnerTransactionUid = "PARTNERTEST0002",          
-            PartnerId = "PTR1051673",                          
+            PartnerTransactionUid = "PARTNERTEST0002",
+            PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
-            MerchantId = "KB102057149704",                     
-            OriginalPartnerTransactionUid = "PARTNERTEST0001"  
+            MerchantId = "KB102057149704",
+            OriginalPartnerTransactionUid = "PARTNERTEST0001"
         };
 
         // Perform QR inquiry
@@ -134,7 +134,7 @@ public class KAPITest {
             await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IHeaderModifier.Test("QR004"));
 
         // Log the response
-        _outputHelper.WriteLine(JsonSerializer.Serialize(result));
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result), new JsonSerializerOptions() { WriteIndented = true });
 
         // Verify response
         Assert.NotNull(result);
