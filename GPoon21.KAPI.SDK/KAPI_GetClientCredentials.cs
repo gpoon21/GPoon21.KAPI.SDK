@@ -5,8 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace GPoon21.KAPI.SDK;
 
-public static class KAPI {
-
+public static partial class KAPI {
     public class CustomerInfo {
         [JsonPropertyName("access_token")]
         public required string AccessToken { get; init; }
@@ -63,5 +62,4 @@ public static class KAPI {
 
         return JsonSerializer.Deserialize<CustomerInfo>(responseBody)!;
     }
-
 }
