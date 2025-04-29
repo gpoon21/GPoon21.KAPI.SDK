@@ -19,7 +19,7 @@ public class KAPITest {
         string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
         Assert.NotNull(customerSecret);
 
-        KAPI.CustomerInfo result = await KAPI.GetClientCredentials(customerId, customerSecret);
+        KAPI.CustomerInfo result = await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderModifier.Test("OAUTH2"));
         _outputHelper.WriteLine(JsonSerializer.Serialize(result));
         Assert.NotNull(result);
     }
@@ -60,7 +60,7 @@ public class KAPITest {
         };
 
         // Request QR code
-        KAPI.QRResponse result = await KAPI.RequestQR(qrRequest, credentials.AccessToken);
+        KAPI.QRResponse result = await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderModifier.Test("QR002"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result));
