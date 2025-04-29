@@ -7,6 +7,9 @@ public static partial class KAPI {
 
         public void Modify(HttpRequestHeaders headers);
 
+        /// <summary>
+        /// Add 'x-test-mode: true' to <see cref="HttpRequestHeaders"/> and 'env-id' with a specific value.
+        /// </summary>
         public class Test : IHeaderModifier {
             private readonly string _envId;
 
