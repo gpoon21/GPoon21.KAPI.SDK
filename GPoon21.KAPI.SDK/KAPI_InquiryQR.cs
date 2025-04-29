@@ -54,6 +54,7 @@ public static partial class KAPI {
             };
         }
     }
+    
 
     public class QRInquiryResponse {
         [JsonPropertyName("partnerTxnUid")]
@@ -63,7 +64,8 @@ public static partial class KAPI {
         public required string PartnerId { get; init; }
 
         [JsonPropertyName("statusCode")]
-        public required string StatusCode { get; init; }
+        [JsonConverter(typeof(StatusCodeJsonConverter))]
+        public required StatusCode StatusCode { get; init; }
 
         [JsonPropertyName("errorCode")]
         public string? ErrorCode { get; init; }
@@ -102,7 +104,8 @@ public static partial class KAPI {
         public string? TerminalId { get; init; }
 
         [JsonPropertyName("qrType")]
-        public required string QRType { get; init; }
+        [JsonConverter(typeof(QRTypeJsonConverter))]
+        public required QRType QRType { get; init; }
 
         [JsonPropertyName("txnAmount")]
         public required string TransactionAmount { get; init; }
