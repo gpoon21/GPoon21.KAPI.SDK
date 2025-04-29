@@ -78,6 +78,7 @@ public enum ReturnedQRType {
     CreditCard = 2
 }
 
+// Converter for single ReturnedQRType
 public class ReturnedQRTypeJsonConverter : JsonConverter<ReturnedQRType> {
     public override ReturnedQRType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
         return ReturnedQRTypeExtensions.ParseReturnedQRType(reader.GetString()!);
@@ -88,6 +89,33 @@ public class ReturnedQRTypeJsonConverter : JsonConverter<ReturnedQRType> {
     }
 }
 
+// If you need a separate array converter, create it with a different name
+public class ReturnedQRTypeArrayJsonConverter : JsonConverter<ReturnedQRType[]> {
+    public override ReturnedQRType[] Read(ref Utf8JsonReader reader, Type typeToConvert,
+        JsonSerializerOptions options) {
+        if (reader.TokenType != JsonTokenType.StartArray) {
+            throw new JsonException("Expected start of array");
+        }
+        List<ReturnedQRType> results = new();
+        while (reader.Read()) {
+            if (reader.TokenType == JsonTokenType.EndArray) {
+                break;
+            }
+            if (reader.TokenType == JsonTokenType.String) {
+                results.Add(ReturnedQRTypeExtensions.ParseReturnedQRType(reader.GetString()!));
+            }
+        }
+        return results.ToArray();
+    }
+
+    public override void Write(Utf8JsonWriter writer, ReturnedQRType[] value, JsonSerializerOptions options) {
+        writer.WriteStartArray();
+        foreach (ReturnedQRType val in value) {
+            writer.WriteStringValue(val.ToCode());
+        }
+        writer.WriteEndArray();
+    }
+}
 public static class ReturnedQRTypeExtensions {
     public static string ToCode(this ReturnedQRType type) => type switch {
         ReturnedQRType.ThaiQR     => "PP",
