@@ -13,14 +13,61 @@ public class KAPITest {
 
     [Fact]
     public async Task GetClientCredentials_Success() {
-        
+
         string? customerId = Environment.GetEnvironmentVariable(nameof(customerId));
         Assert.NotNull(customerId);
         string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
         Assert.NotNull(customerSecret);
-        
+
         KAPI.CustomerInfo result = await KAPI.GetClientCredentials(customerId, customerSecret);
         _outputHelper.WriteLine(JsonSerializer.Serialize(result));
         Assert.NotNull(result);
     }
+
+    [Fact]
+    public async Task RequestQR_Success() {
+        // Get required environment variables
+        string? customerId = Environment.GetEnvironmentVariable(nameof(customerId));
+        Assert.NotNull(customerId);
+        string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
+        Assert.NotNull(customerSecret);
+        string? partnerId = Environment.GetEnvironmentVariable(nameof(partnerId));
+        Assert.NotNull(partnerId);
+        string? partnerSecret = Environment.GetEnvironmentVariable(nameof(partnerSecret));
+        Assert.NotNull(partnerSecret);
+        string? merchantId = Environment.GetEnvironmentVariable(nameof(merchantId));
+        Assert.NotNull(merchantId);
+
+        // First, get the access token
+        KAPI.CustomerInfo credentials = await KAPI.GetClientCredentials(customerId, customerSecret);
+        Assert.NotNull(credentials.AccessToken);
+
+        // Create QR request
+        KAPI.QRRequest qrRequest = new() {
+            PartnerTransactionUid = Guid.NewGuid().ToString("N"),
+            PartnerId = partnerId,
+            PartnerSecret = partnerSecret,
+            MerchantId = merchantId,
+            QRType = "3",
+            TransactionAmount = 100.00m,
+            TransactionCurrencyCode = "THB",
+            Reference1 = "INV001",
+            Reference2 = "HELLOWORLD",
+            Reference3 = "INV001",
+            Reference4 = "INV001",
+        };
+
+        // Request QR code
+        KAPI.QRResponse result = await KAPI.RequestQR(qrRequest, credentials.AccessToken);
+
+        // Log the response
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result));
+
+        // Verify response
+        Assert.NotNull(result);
+        Assert.Equal(qrRequest.PartnerTransactionUid, result.PartnerTransactionUid);
+        Assert.NotNull(result.QRCode);
+        Assert.NotNull(result.QRImage);
+    }
+
 }
