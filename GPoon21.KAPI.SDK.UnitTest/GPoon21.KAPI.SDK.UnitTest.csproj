@@ -18,4 +18,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GPoon21.KAPI.SDK\GPoon21.KAPI.SDK.csproj" />
+    </ItemGroup>
+
 </Project>
