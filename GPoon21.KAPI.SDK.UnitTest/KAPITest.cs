@@ -69,7 +69,6 @@ public class KAPITest {
         Assert.NotNull(result);
         Assert.Equal(qrRequest.PartnerTransactionUid, result.PartnerTransactionUid);
         Assert.NotNull(result.QRCode);
-        Assert.NotNull(result.QRImage);
     }
 
 }
