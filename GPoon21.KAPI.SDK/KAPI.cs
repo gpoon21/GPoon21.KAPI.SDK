@@ -1,11 +1,36 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace GPoon21.KAPI.SDK;
 
 public static class KAPI {
 
-    public static async Task<string> GetAccessTokenAsync(string consumerId, string consumerSecret) {
+    public class CustomerInfo {
+        [JsonPropertyName("access_token")]
+        public required string AccessToken { get; init; }
+
+        [JsonPropertyName("client_id")]
+        public required string ClientId { get; init; }
+
+        [JsonPropertyName("developer.email")]
+        public required string Email { get; init; }
+
+        [JsonPropertyName("expires_in")]
+        public required string ExpireIn { get; init; }
+
+        [JsonPropertyName("scope")]
+        public required string Scope { get; init; }
+
+        [JsonPropertyName("status")]
+        public required string Status { get; init; }
+
+        [JsonPropertyName("token_type")]
+        public required string TokenType { get; init; }
+    }
+
+    public static async Task<CustomerInfo> GetAccessTokenAsync(string consumerId, string consumerSecret) {
         using HttpClient httpClient = new();
         // OAuth token endpoint
         string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
@@ -32,8 +57,8 @@ public static class KAPI {
             throw new ApplicationException(
                 $"Failed to get token. Status: {response.StatusCode}, Response: {responseBody}");
         }
-
-        return responseBody; // Contains access_token and expires_in
+        
+        return JsonSerializer.Deserialize<CustomerInfo>(responseBody)!; 
     }
 
 }

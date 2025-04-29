@@ -1,4 +1,5 @@
-﻿using Xunit.Abstractions;
+﻿using System.Text.Json;
+using Xunit.Abstractions;
 
 namespace GPoon21.KAPI.SDK.UnitTest;
 
@@ -17,9 +18,9 @@ public class KAPITest {
         Assert.NotNull(customerId);
         string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
         Assert.NotNull(customerSecret);
-
-        string result = await KAPI.GetAccessTokenAsync(customerId, customerSecret);
-        _outputHelper.WriteLine(result);
-        Assert.False(string.IsNullOrWhiteSpace(result));
+        
+        KAPI.CustomerInfo result = await KAPI.GetAccessTokenAsync(customerId, customerSecret);
+        _outputHelper.WriteLine(JsonSerializer.Serialize(result));
+        Assert.NotNull(result);
     }
 }
