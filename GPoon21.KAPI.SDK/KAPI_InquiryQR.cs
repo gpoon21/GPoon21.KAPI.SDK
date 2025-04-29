@@ -105,7 +105,7 @@ public static partial class KAPI {
         public required string QRType { get; init; }
 
         [JsonPropertyName("txnAmount")]
-        public required decimal TransactionAmount { get; init; }
+        public required string TransactionAmount { get; init; }
 
         [JsonPropertyName("txnCurrencyCode")]
         public required string TransactionCurrencyCode { get; init; }
