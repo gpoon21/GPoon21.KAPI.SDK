@@ -4,16 +4,16 @@ namespace GPoon21.KAPI.SDK.QRPayment;
 
 public static partial class KBankQR {
 
-    public class QRPaymentClient {
+    public class Client {
         private readonly CustomerInfo _customerInfo;
 
-        public static async Task<QRPaymentClient> CreateAsync(string consumerId, string consumerSecret,
+        public static async Task<Client> CreateAsync(string consumerId, string consumerSecret,
             IRequestMode headerModifier) {
             CustomerInfo clientInfo = await GetClientCredentials(consumerId, consumerSecret, headerModifier);
-            return new QRPaymentClient(clientInfo);
+            return new Client(clientInfo);
         }
 
-        private QRPaymentClient(CustomerInfo customerInfo) {
+        private Client(CustomerInfo customerInfo) {
             _customerInfo = customerInfo;
         }
 
@@ -28,6 +28,26 @@ public static partial class KBankQR {
             IRequestMode headerModifier) {
             return KBankQR.InquiryPayment(request, _customerInfo.AccessToken, headerModifier);
         }
+
+
+        public Task<QRSettlementResponse> GetSettlement(
+            QRSettlementRequest request,
+            IRequestMode headerModifier) {
+            return KBankQR.GetSettlement(request, _customerInfo.AccessToken, headerModifier);
+        }
+
+        public Task<QRCancelResponse> CancelQR(
+            QRCancelRequest request,
+            IRequestMode headerModifier) {
+            return KBankQR.CancelQR(request, _customerInfo.AccessToken, headerModifier);
+        }
+
+        public Task<QRVoidResponse> VoidPayment(
+            QRVoidRequest request,
+            IRequestMode headerModifier) {
+            return KBankQR.VoidPayment(request, _customerInfo.AccessToken, headerModifier);
+        }
+
 
     }
 
@@ -45,6 +65,6 @@ public static partial class KBankQR {
 
         return JsonSerializer.Deserialize<T>(responseBody)!;
     }
-    
+
 
 }
