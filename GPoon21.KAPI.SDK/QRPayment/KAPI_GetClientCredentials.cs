@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace GPoon21.KAPI.SDK.QRPayment;
 
-public static partial class KAPI {
+public static partial class KApi {
     public class CustomerInfo {
         [JsonPropertyName("access_token")]
         public required string AccessToken { get; init; }

@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace GPoon21.KAPI.SDK.QRPayment;
 
-public static partial class KAPI {
+public static partial class KApi {
 
     public class Client {
         private readonly CustomerInfo _customerInfo;
@@ -21,13 +21,13 @@ public static partial class KAPI {
         public Task<QRResponse> RequestQR(
             QRRequest request,
             IRequestMode headerModifier) {
-            return KAPI.RequestQR(request, _customerInfo.AccessToken, headerModifier);
+            return KApi.RequestQR(request, _customerInfo.AccessToken, headerModifier);
         }
 
         public Task<QRInquiryResponse> InquiryQR(
             QRInquiryRequest request,
             IRequestMode headerModifier) {
-            return KAPI.InquiryQR(request, _customerInfo.AccessToken, headerModifier);
+            return KApi.InquiryQR(request, _customerInfo.AccessToken, headerModifier);
         }
 
     }
