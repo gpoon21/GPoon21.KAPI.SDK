@@ -73,7 +73,7 @@ public static partial class KBankQR {
         public string? ErrorDescription { get; init; }
 
         [JsonPropertyName("txnNo")]
-        public required string TransactionNumber { get; init; }
+        public string? TransactionNumber { get; init; }
     }
 
     /// <summary>
