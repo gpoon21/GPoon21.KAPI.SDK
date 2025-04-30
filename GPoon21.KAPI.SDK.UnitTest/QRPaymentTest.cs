@@ -3,10 +3,10 @@ using Xunit.Abstractions;
 
 namespace GPoon21.KAPI.SDK.UnitTest;
 
-public class KAPITest {
+public class QRPaymentTest {
     private readonly ITestOutputHelper _outputHelper;
 
-    public KAPITest(ITestOutputHelper outputHelper) {
+    public QRPaymentTest(ITestOutputHelper outputHelper) {
         _outputHelper = outputHelper;
     }
 
