@@ -121,7 +121,7 @@ public static partial class KAPI {
         UriBuilder builder = new(requestMode.BaseUrl);
         builder.Path = "v1/qrpayment/request";
 
-        // Create HTTP request with the built URL
+        // Create an HTTP request with the built URL
         HttpRequestMessage httpRequest = new(HttpMethod.Post, builder.ToString());
         httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         requestMode.Modify(httpRequest.Headers);
