@@ -29,16 +29,12 @@ public static partial class KAPI {
         public required string TokenType { get; init; }
     }
 
-    /// <summary>
-    /// API documentation: https://apiportal.kasikornbank.com/product/public/All/QR%20Payment/Documentation/Identity%20confirmation
-    /// </summary>
     public static async Task<CustomerInfo> GetClientCredentials(
         string consumerId,
         string consumerSecret,
         IRequestMode? requestMode = null) {
-        using HttpClient httpClient = new();
         // OAuth token endpoint
-        string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
+        const string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
 
         // Step 1: Create a Basic Authorization header value
         string credentials = $"{consumerId}:{consumerSecret}";
@@ -54,15 +50,7 @@ public static partial class KAPI {
         request.Content = new StringContent("grant_type=client_credentials", Encoding.UTF8,
             "application/x-www-form-urlencoded");
 
-        // Step 4: Send a request
-        HttpResponseMessage response = await httpClient.SendAsync(request);
-        string responseBody = await response.Content.ReadAsStringAsync();
-
-        if (!response.IsSuccessStatusCode) {
-            throw new ApplicationException(
-                $"Failed to get token. Status: {response.StatusCode}, Response: {responseBody}");
-        }
-
-        return JsonSerializer.Deserialize<CustomerInfo>(responseBody)!;
+        // Step 4: Send request using SendRequestAsync
+        return await SendRequestAsync<CustomerInfo>(request);
     }
 }
