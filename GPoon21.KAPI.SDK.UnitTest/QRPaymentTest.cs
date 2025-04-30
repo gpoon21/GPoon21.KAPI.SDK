@@ -251,4 +251,41 @@ public class QRPaymentTest {
         Assert.Equal(inquiryRequest.PartnerId, result.PartnerId);
     }
 
+    [Fact]
+    public async Task CancelQR_StatusRequest_Success() {
+        // Get required credentials
+        string? customerId = Environment.GetEnvironmentVariable(nameof(customerId));
+        Assert.NotNull(customerId);
+        string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
+        Assert.NotNull(customerSecret);
+
+        // Get an access token
+        KAPI.CustomerInfo credentials =
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        Assert.NotNull(credentials.AccessToken);
+
+        // Create a QR cancel request with specified parameters
+        KAPI.QRCancelRequest cancelRequest = new() {
+            PartnerTransactionUid = "PARTNERTEST0006",
+            PartnerId = "PTR1051673",
+            PartnerSecret = "d4bded59200547bc85903574a293831b",
+            MerchantId = "KB102057149704",
+            OriginalPartnerTransactionUid = "PARTNERTEST0001"
+        };
+
+        // Perform QR cancellation
+        KAPI.QRCancelResponse result =
+            await KAPI.CancelQR(cancelRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR008"));
+
+        // Log the response
+        _outputHelper.WriteLine(
+            JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
+
+        // Verify response
+        Assert.NotNull(result);
+        Assert.Equal(cancelRequest.PartnerTransactionUid, result.PartnerTransactionUid);
+        Assert.Equal(cancelRequest.PartnerId, result.PartnerId);
+    }
+
+
 }
