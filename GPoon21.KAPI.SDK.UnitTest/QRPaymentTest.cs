@@ -20,9 +20,9 @@ public class QRPaymentTest {
         string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
         Assert.NotNull(customerSecret);
 
-        KBank.CustomerInfo result =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo result =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
         Assert.NotNull(result);
     }
@@ -36,13 +36,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get required environment variables
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR request with specified parameters
-        KBank.QRRequest qrRequest = new() {
+        KBankQR.QRRequest qrRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0001",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -57,9 +57,9 @@ public class QRPaymentTest {
         };
 
         // Request QR code
-        KBank.QRResponse result =
-            await KBank.RequestQR(qrRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR002"));
+        KBankQR.QRResponse result =
+            await KBankQR.RequestQR(qrRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR002"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -79,13 +79,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR request with specified parameters
-        KBank.QRRequest qrRequest = new() {
+        KBankQR.QRRequest qrRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0001-2",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -100,9 +100,9 @@ public class QRPaymentTest {
         };
 
         // Request QR code with a specified environment
-        KBank.QRResponse result =
-            await KBank.RequestQR(qrRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR003"));
+        KBankQR.QRResponse result =
+            await KBankQR.RequestQR(qrRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR003"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -122,13 +122,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
-        KBank.QRInquiryRequest inquiryRequest = new() {
+        KBankQR.QRInquiryRequest inquiryRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0002",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -137,9 +137,9 @@ public class QRPaymentTest {
         };
 
         // Perform QR inquiry
-        KBank.QRInquiryResponse result =
-            await KBank.InquiryPayment(inquiryRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR004"));
+        KBankQR.QRInquiryResponse result =
+            await KBankQR.InquiryPayment(inquiryRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR004"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -160,13 +160,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
-        KBank.QRInquiryRequest inquiryRequest = new() {
+        KBankQR.QRInquiryRequest inquiryRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0003",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -175,9 +175,9 @@ public class QRPaymentTest {
         };
 
         // Perform QR inquiry with a specified environment
-        KBank.QRInquiryResponse result =
-            await KBank.InquiryPayment(inquiryRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR005"));
+        KBankQR.QRInquiryResponse result =
+            await KBankQR.InquiryPayment(inquiryRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR005"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -198,13 +198,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
-        KBank.QRInquiryRequest inquiryRequest = new() {
+        KBankQR.QRInquiryRequest inquiryRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0004",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -213,9 +213,9 @@ public class QRPaymentTest {
         };
 
         // Perform QR inquiry with a specified environment
-        KBank.QRInquiryResponse result =
-            await KBank.InquiryPayment(inquiryRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR006"));
+        KBankQR.QRInquiryResponse result =
+            await KBankQR.InquiryPayment(inquiryRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR006"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -236,13 +236,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
-        KBank.QRInquiryRequest inquiryRequest = new() {
+        KBankQR.QRInquiryRequest inquiryRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0005",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -251,9 +251,9 @@ public class QRPaymentTest {
         };
 
         // Perform QR inquiry with a specified environment
-        KBank.QRInquiryResponse result =
-            await KBank.InquiryPayment(inquiryRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR007"));
+        KBankQR.QRInquiryResponse result =
+            await KBankQR.InquiryPayment(inquiryRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR007"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -274,13 +274,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR cancel request with specified parameters
-        KBank.QRCancelRequest cancelRequest = new() {
+        KBankQR.QRCancelRequest cancelRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0006",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -289,9 +289,9 @@ public class QRPaymentTest {
         };
 
         // Perform QR cancellation
-        KBank.QRCancelResponse result =
-            await KBank.CancelQR(cancelRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR008"));
+        KBankQR.QRCancelResponse result =
+            await KBankQR.CancelQR(cancelRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR008"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -312,13 +312,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR cancel request with specified parameters
-        KBank.QRCancelRequest cancelRequest = new() {
+        KBankQR.QRCancelRequest cancelRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0007",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -327,9 +327,9 @@ public class QRPaymentTest {
         };
 
         // Perform QR cancellation
-        KBank.QRCancelResponse result =
-            await KBank.CancelQR(cancelRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR010"));
+        KBankQR.QRCancelResponse result =
+            await KBankQR.CancelQR(cancelRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR010"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -350,13 +350,13 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KBank.CustomerInfo credentials =
-            await KBank.GetClientCredentials(customerId, customerSecret,
-                new KBank.IRequestMode.Test("OAUTH2"));
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR cancel request with specified parameters from the exercise
-        KBank.QRCancelRequest cancelRequest = new() {
+        KBankQR.QRCancelRequest cancelRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0008",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -365,9 +365,9 @@ public class QRPaymentTest {
         };
 
         // Perform QR cancellation
-        KBank.QRCancelResponse result =
-            await KBank.CancelQR(cancelRequest, credentials.AccessToken,
-                new KBank.IRequestMode.Test("QR011"));
+        KBankQR.QRCancelResponse result =
+            await KBankQR.CancelQR(cancelRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR011"));
 
         // Log the response
         _outputHelper.WriteLine(
