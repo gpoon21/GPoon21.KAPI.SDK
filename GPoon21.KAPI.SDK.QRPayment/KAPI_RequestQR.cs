@@ -116,7 +116,6 @@ public static partial class KAPI {
         QRRequest request,
         string accessToken,
         IRequestMode? requestMode = null) {
-        using HttpClient httpClient = new();
         string apiUrl = "https://openapi-sandbox.kasikornbank.com/v1/qrpayment/request";
 
         // Create HTTP request
@@ -126,21 +125,13 @@ public static partial class KAPI {
         requestMode.Modify(httpRequest.Headers);
 
         // Convert to serializable request and add timestamp
-        var serializableRequest = SerializableQRRequest.FromRequest(request);
+        SerializableQRRequest serializableRequest = SerializableQRRequest.FromRequest(request);
 
         // Set JSON body
         string jsonContent = JsonSerializer.Serialize(serializableRequest);
         httpRequest.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        // Send request
-        HttpResponseMessage response = await httpClient.SendAsync(httpRequest);
-        string responseBody = await response.Content.ReadAsStringAsync();
-
-        if (!response.IsSuccessStatusCode) {
-            throw new ApplicationException(
-                $"Failed to request QR code. Status: {response.StatusCode}, Response: {responseBody}");
-        }
-
-        return JsonSerializer.Deserialize<QRResponse>(responseBody)!;
+        // Send a request using SendRequestAsync
+        return await SendRequestAsync<QRResponse>(httpRequest);
     }
 }
