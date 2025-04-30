@@ -179,5 +179,41 @@ public class QRPaymentTest {
         Assert.Equal(inquiryRequest.PartnerId, result.PartnerId);
     }
 
+    [Fact]
+    public async Task InquiryQR_PaidStatus_Success() {
+        // Get required credentials
+        string? customerId = Environment.GetEnvironmentVariable(nameof(customerId));
+        Assert.NotNull(customerId);
+        string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
+        Assert.NotNull(customerSecret);
+
+        // Get an access token
+        KAPI.CustomerInfo credentials =
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        Assert.NotNull(credentials.AccessToken);
+
+        // Create a QR inquiry request with specified parameters
+        KAPI.QRInquiryRequest inquiryRequest = new() {
+            PartnerTransactionUid = "PARTNERTEST0004",
+            PartnerId = "PTR1051673",
+            PartnerSecret = "d4bded59200547bc85903574a293831b",
+            MerchantId = "KB102057149704",
+            OriginalPartnerTransactionUid = "PARTNERTEST0007"
+        };
+
+        // Perform QR inquiry with a specified environment
+        KAPI.QRInquiryResponse result =
+            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR006"));
+
+        // Log the response
+        _outputHelper.WriteLine(
+            JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
+
+        // Verify response
+        Assert.NotNull(result);
+        Assert.Equal(inquiryRequest.PartnerTransactionUid, result.PartnerTransactionUid);
+        Assert.Equal(inquiryRequest.PartnerId, result.PartnerId);
+    }
+
 
 }
