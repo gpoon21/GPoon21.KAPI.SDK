@@ -34,7 +34,7 @@ public static partial class KAPI {
 
     private static async Task<T> SendRequestAsync<T>(HttpRequestMessage request) {
         using HttpClient httpClient = new();
-        
+
         // Step 4: Send a request
         HttpResponseMessage response = await httpClient.SendAsync(request);
         string responseBody = await response.Content.ReadAsStringAsync();
@@ -49,7 +49,7 @@ public static partial class KAPI {
 
 
     public interface IRequestMode {
-
+        public string BaseUrl { get; }
         public void Modify(HttpRequestHeaders headers);
 
         /// <summary>
@@ -62,6 +62,10 @@ public static partial class KAPI {
                 _envId = envId;
             }
 
+            public string BaseUrl {
+                get { return "https://openapi-sandbox.kasikornbank.com"; }
+            }
+
             public void Modify(HttpRequestHeaders headers) {
                 headers.Add("x-test-mode", "true");
                 headers.Add("env-id", _envId);
@@ -69,6 +73,7 @@ public static partial class KAPI {
         }
 
         public class Default : IRequestMode {
+            public required string BaseUrl { get; init; }
             public void Modify(HttpRequestHeaders headers) { }
         }
     }
