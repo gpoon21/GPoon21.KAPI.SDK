@@ -9,7 +9,7 @@ public static partial class KAPI {
         private readonly CustomerInfo _customerInfo;
 
         public static async Task<Client> CreateAsync(string consumerId, string consumerSecret,
-            IRequestMode? headerModifier = null) {
+            IRequestMode headerModifier) {
             CustomerInfo clientInfo = await GetClientCredentials(consumerId, consumerSecret, headerModifier);
             return new Client(clientInfo);
         }
@@ -20,13 +20,13 @@ public static partial class KAPI {
 
         public Task<QRResponse> RequestQR(
             QRRequest request,
-            IRequestMode? headerModifier = null) {
+            IRequestMode headerModifier) {
             return KAPI.RequestQR(request, _customerInfo.AccessToken, headerModifier);
         }
 
         public Task<QRInquiryResponse> InquiryQR(
             QRInquiryRequest request,
-            IRequestMode? headerModifier = null) {
+            IRequestMode headerModifier) {
             return KAPI.InquiryQR(request, _customerInfo.AccessToken, headerModifier);
         }
 
