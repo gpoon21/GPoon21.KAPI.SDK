@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace GPoon21.KAPI.SDK.QRPayment;
 
-public static partial class KApi {
+public static partial class KBank {
     public class QRInquiryRequest {
         public required string PartnerTransactionUid { get; init; }
         public required string PartnerId { get; init; }
