@@ -5,16 +5,16 @@ namespace GPoon21.KAPI.SDK.QRPayment;
 
 public static partial class KBank {
 
-    public class Client {
+    public class QRPaymentClient {
         private readonly CustomerInfo _customerInfo;
 
-        public static async Task<Client> CreateAsync(string consumerId, string consumerSecret,
+        public static async Task<QRPaymentClient> CreateAsync(string consumerId, string consumerSecret,
             IRequestMode headerModifier) {
             CustomerInfo clientInfo = await GetClientCredentials(consumerId, consumerSecret, headerModifier);
-            return new Client(clientInfo);
+            return new QRPaymentClient(clientInfo);
         }
 
-        private Client(CustomerInfo customerInfo) {
+        private QRPaymentClient(CustomerInfo customerInfo) {
             _customerInfo = customerInfo;
         }
 
