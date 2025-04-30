@@ -115,15 +115,15 @@ public static partial class KAPI {
     public static async Task<QRResponse> RequestQR(
         QRRequest request,
         string accessToken,
-        IRequestMode? headerModifier = null) {
+        IRequestMode? requestMode = null) {
         using HttpClient httpClient = new();
         string apiUrl = "https://openapi-sandbox.kasikornbank.com/v1/qrpayment/request";
 
         // Create HTTP request
         HttpRequestMessage httpRequest = new(HttpMethod.Post, apiUrl);
         httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-        headerModifier ??= new IRequestMode.Default();
-        headerModifier.Modify(httpRequest.Headers);
+        requestMode ??= new IRequestMode.Default();
+        requestMode.Modify(httpRequest.Headers);
 
         // Convert to serializable request and add timestamp
         var serializableRequest = SerializableQRRequest.FromRequest(request);
