@@ -29,28 +29,27 @@ public static partial class KAPI {
         public required string TokenType { get; init; }
     }
 
-    public static async Task<CustomerInfo> GetClientCredentials(
-        string consumerId,
+    public static async Task<CustomerInfo> GetClientCredentials(string consumerId,
         string consumerSecret,
-        IRequestMode? requestMode = null) {
+        IRequestMode requestMode) {
         // OAuth token endpoint
-        const string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
+        UriBuilder builder = new(requestMode.BaseUrl);
+        builder.Path = "v2/oauth/token";
 
         // Step 1: Create a Basic Authorization header value
         string credentials = $"{consumerId}:{consumerSecret}";
         string base64Credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
 
         // Step 2: Create an HTTP request
-        HttpRequestMessage request = new(HttpMethod.Post, tokenUrl);
+        HttpRequestMessage request = new(HttpMethod.Post, builder.ToString());
         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
-        requestMode ??= new IRequestMode.Default();
         requestMode.Modify(request.Headers);
 
         // Step 3: Set form body
         request.Content = new StringContent("grant_type=client_credentials", Encoding.UTF8,
             "application/x-www-form-urlencoded");
 
-        // Step 4: Send request using SendRequestAsync
+        // Step 4: Send a request using SendRequestAsync
         return await SendRequestAsync<CustomerInfo>(request);
     }
 }
