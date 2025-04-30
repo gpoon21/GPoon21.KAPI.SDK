@@ -4,6 +4,7 @@
 C# SDK for KBank KAPI QR Payment https://apiportal.kasikornbank.com/product/public/All/QR%20Payment/Documentation/Identity%20confirmation
 
 By running the unit test with envirment variable customerId, customerSecret, and SSL_CERTIFICATE_PEM, you should be able to pass all 16 QRPayment excercises.
+
 This code currently have not been tested againist a real API outside of the sandbox since I have no access to it.
  
 ## Usage/Examples
