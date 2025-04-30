@@ -28,6 +28,9 @@ public static partial class KApi {
         public required string TokenType { get; init; }
     }
 
+    /// <summary>
+    /// API documentation: https://apiportal.kasikornbank.com/product/public/All/QR%20Payment/Documentation/Identity%20confirmation
+    /// </summary>
     public static async Task<CustomerInfo> GetClientCredentials(string consumerId,
         string consumerSecret,
         IRequestMode requestMode) {

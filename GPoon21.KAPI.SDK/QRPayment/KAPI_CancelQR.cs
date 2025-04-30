@@ -69,7 +69,7 @@ public static partial class KApi {
     }
 
     /// <summary>
-    /// API documentation: https://openapi-sandbox.kasikornbank.com/v1/qrpayment/cancel
+    /// API documentation: https://apiportal.kasikornbank.com/product/public/All/QR%20Payment/Documentation/Cancel%20QR
     /// </summary>
     public static async Task<QRCancelResponse> CancelQR(
         QRCancelRequest request,
