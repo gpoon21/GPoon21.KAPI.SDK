@@ -35,7 +35,7 @@ public static partial class KAPI {
     public static async Task<CustomerInfo> GetClientCredentials(
         string consumerId,
         string consumerSecret,
-        IHeaderMode? headerModifier = null) {
+        IRequestMode? headerModifier = null) {
         using HttpClient httpClient = new();
         // OAuth token endpoint
         string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
@@ -47,7 +47,7 @@ public static partial class KAPI {
         // Step 2: Create an HTTP request
         HttpRequestMessage request = new(HttpMethod.Post, tokenUrl);
         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
-        headerModifier ??= new IHeaderMode.Default();
+        headerModifier ??= new IRequestMode.Default();
         headerModifier.Modify(request.Headers);
 
         // Step 3: Set form body

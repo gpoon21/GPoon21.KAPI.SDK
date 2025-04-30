@@ -8,7 +8,7 @@ public static partial class KAPI {
         private readonly CustomerInfo _customerInfo;
 
         public static async Task<Client> CreateAsync(string consumerId, string consumerSecret,
-            IHeaderMode? headerModifier = null) {
+            IRequestMode? headerModifier = null) {
             CustomerInfo clientInfo = await GetClientCredentials(consumerId, consumerSecret, headerModifier);
             return new Client(clientInfo);
         }
@@ -19,26 +19,26 @@ public static partial class KAPI {
 
         public Task<QRResponse> RequestQR(
             QRRequest request,
-            IHeaderMode? headerModifier = null) {
+            IRequestMode? headerModifier = null) {
             return KAPI.RequestQR(request, _customerInfo.AccessToken, headerModifier);
         }
 
         public Task<QRInquiryResponse> InquiryQR(
             QRInquiryRequest request,
-            IHeaderMode? headerModifier = null) {
+            IRequestMode? headerModifier = null) {
             return KAPI.InquiryQR(request, _customerInfo.AccessToken, headerModifier);
         }
 
     }
 
-    public interface IHeaderMode {
+    public interface IRequestMode {
 
         public void Modify(HttpRequestHeaders headers);
 
         /// <summary>
         /// Add 'x-test-mode: true' to <see cref="HttpRequestHeaders"/> and 'env-id' with a specific value.
         /// </summary>
-        public class Test : IHeaderMode {
+        public class Test : IRequestMode {
             private readonly string _envId;
 
             public Test(string envId) {
@@ -51,9 +51,11 @@ public static partial class KAPI {
             }
         }
 
-        public class Default : IHeaderMode {
+        public class Default : IRequestMode {
             public void Modify(HttpRequestHeaders headers) { }
         }
-
     }
+    
+    
+    
 }

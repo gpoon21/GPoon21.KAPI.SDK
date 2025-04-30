@@ -20,7 +20,7 @@ public class KAPITest {
         Assert.NotNull(customerSecret);
 
         KAPI.CustomerInfo result =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderMode.Test("OAUTH2"));
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
         Assert.NotNull(result);
     }
@@ -35,7 +35,7 @@ public class KAPITest {
 
         // Get required environment variables
         KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderMode.Test("OAUTH2"));
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR request with specified parameters
@@ -55,7 +55,7 @@ public class KAPITest {
 
         // Request QR code
         KAPI.QRResponse result =
-            await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderMode.Test("QR002"));
+            await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR002"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -76,7 +76,7 @@ public class KAPITest {
 
         // Get an access token
         KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderMode.Test("OAUTH2"));
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR request with specified parameters
@@ -96,7 +96,7 @@ public class KAPITest {
 
         // Request QR code with a specified environment
         KAPI.QRResponse result =
-            await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IHeaderMode.Test("QR003"));
+            await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR003"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -117,7 +117,7 @@ public class KAPITest {
 
         // Get an access token
         KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderMode.Test("OAUTH2"));
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
@@ -131,7 +131,7 @@ public class KAPITest {
 
         // Perform QR inquiry
         KAPI.QRInquiryResponse result =
-            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IHeaderMode.Test("QR004"));
+            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR004"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -153,7 +153,7 @@ public class KAPITest {
 
         // Get an access token
         KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IHeaderMode.Test("OAUTH2"));
+            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
@@ -167,7 +167,7 @@ public class KAPITest {
 
         // Perform QR inquiry with a specified environment
         KAPI.QRInquiryResponse result =
-            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IHeaderMode.Test("QR005"));
+            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR005"));
 
         // Log the response
         _outputHelper.WriteLine(
