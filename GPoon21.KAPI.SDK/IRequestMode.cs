@@ -10,9 +10,9 @@ public interface IRequestMode {
     /// Add 'x-test-mode: true' to <see cref="HttpRequestHeaders"/> and 'env-id' with a specific value.
     /// </summary>
     public class Test : IRequestMode {
-        private readonly string _envId;
+        private readonly string? _envId;
 
-        public Test(string envId) {
+        public Test(string? envId = null) {
             _envId = envId;
         }
 
@@ -22,7 +22,7 @@ public interface IRequestMode {
 
         public void Modify(HttpRequestHeaders headers) {
             headers.Add("x-test-mode", "true");
-            headers.Add("env-id", _envId);
+            if (_envId != null) headers.Add("env-id", _envId);
         }
     }
 
