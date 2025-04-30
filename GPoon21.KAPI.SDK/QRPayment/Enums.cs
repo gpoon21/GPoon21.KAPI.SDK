@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace GPoon21.KAPI.SDK;
+namespace GPoon21.KAPI.SDK.QRPayment;
 
 [JsonConverter(typeof(StatusCodeJsonConverter))]
 public enum StatusCode {

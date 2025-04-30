@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using GPoon21.KAPI.SDK.QRPayment;
 using Xunit.Abstractions;
 
 namespace GPoon21.KAPI.SDK.UnitTest;
@@ -20,8 +21,8 @@ public class QRPaymentTest {
         string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
         Assert.NotNull(customerSecret);
 
-        KAPI.CustomerInfo result =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        QRPayment.KAPI.CustomerInfo result =
+            await QRPayment.KAPI.GetClientCredentials(customerId, customerSecret, new QRPayment.KAPI.IRequestMode.Test("OAUTH2"));
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
         Assert.NotNull(result);
     }
@@ -35,12 +36,12 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get required environment variables
-        KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        QRPayment.KAPI.CustomerInfo credentials =
+            await QRPayment.KAPI.GetClientCredentials(customerId, customerSecret, new QRPayment.KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR request with specified parameters
-        KAPI.QRRequest qrRequest = new() {
+        QRPayment.KAPI.QRRequest qrRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0001",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -55,8 +56,8 @@ public class QRPaymentTest {
         };
 
         // Request QR code
-        KAPI.QRResponse result =
-            await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR002"));
+        QRPayment.KAPI.QRResponse result =
+            await QRPayment.KAPI.RequestQR(qrRequest, credentials.AccessToken, new QRPayment.KAPI.IRequestMode.Test("QR002"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -76,12 +77,12 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        QRPayment.KAPI.CustomerInfo credentials =
+            await QRPayment.KAPI.GetClientCredentials(customerId, customerSecret, new QRPayment.KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR request with specified parameters
-        KAPI.QRRequest qrRequest = new() {
+        QRPayment.KAPI.QRRequest qrRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0001-2",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -96,8 +97,8 @@ public class QRPaymentTest {
         };
 
         // Request QR code with a specified environment
-        KAPI.QRResponse result =
-            await KAPI.RequestQR(qrRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR003"));
+        QRPayment.KAPI.QRResponse result =
+            await QRPayment.KAPI.RequestQR(qrRequest, credentials.AccessToken, new QRPayment.KAPI.IRequestMode.Test("QR003"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -117,12 +118,12 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        QRPayment.KAPI.CustomerInfo credentials =
+            await QRPayment.KAPI.GetClientCredentials(customerId, customerSecret, new QRPayment.KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
-        KAPI.QRInquiryRequest inquiryRequest = new() {
+        QRPayment.KAPI.QRInquiryRequest inquiryRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0002",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -131,8 +132,8 @@ public class QRPaymentTest {
         };
 
         // Perform QR inquiry
-        KAPI.QRInquiryResponse result =
-            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR004"));
+        QRPayment.KAPI.QRInquiryResponse result =
+            await QRPayment.KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new QRPayment.KAPI.IRequestMode.Test("QR004"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -153,12 +154,12 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        QRPayment.KAPI.CustomerInfo credentials =
+            await QRPayment.KAPI.GetClientCredentials(customerId, customerSecret, new QRPayment.KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
-        KAPI.QRInquiryRequest inquiryRequest = new() {
+        QRPayment.KAPI.QRInquiryRequest inquiryRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0003",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -167,8 +168,8 @@ public class QRPaymentTest {
         };
 
         // Perform QR inquiry with a specified environment
-        KAPI.QRInquiryResponse result =
-            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR005"));
+        QRPayment.KAPI.QRInquiryResponse result =
+            await QRPayment.KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new QRPayment.KAPI.IRequestMode.Test("QR005"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -189,12 +190,12 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        QRPayment.KAPI.CustomerInfo credentials =
+            await QRPayment.KAPI.GetClientCredentials(customerId, customerSecret, new QRPayment.KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
-        KAPI.QRInquiryRequest inquiryRequest = new() {
+        QRPayment.KAPI.QRInquiryRequest inquiryRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0004",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -203,8 +204,8 @@ public class QRPaymentTest {
         };
 
         // Perform QR inquiry with a specified environment
-        KAPI.QRInquiryResponse result =
-            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR006"));
+        QRPayment.KAPI.QRInquiryResponse result =
+            await QRPayment.KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new QRPayment.KAPI.IRequestMode.Test("QR006"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -225,12 +226,12 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        QRPayment.KAPI.CustomerInfo credentials =
+            await QRPayment.KAPI.GetClientCredentials(customerId, customerSecret, new QRPayment.KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
-        KAPI.QRInquiryRequest inquiryRequest = new() {
+        QRPayment.KAPI.QRInquiryRequest inquiryRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0005",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -239,8 +240,8 @@ public class QRPaymentTest {
         };
 
         // Perform QR inquiry with a specified environment
-        KAPI.QRInquiryResponse result =
-            await KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR007"));
+        QRPayment.KAPI.QRInquiryResponse result =
+            await QRPayment.KAPI.InquiryQR(inquiryRequest, credentials.AccessToken, new QRPayment.KAPI.IRequestMode.Test("QR007"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -261,12 +262,12 @@ public class QRPaymentTest {
         Assert.NotNull(customerSecret);
 
         // Get an access token
-        KAPI.CustomerInfo credentials =
-            await KAPI.GetClientCredentials(customerId, customerSecret, new KAPI.IRequestMode.Test("OAUTH2"));
+        QRPayment.KAPI.CustomerInfo credentials =
+            await QRPayment.KAPI.GetClientCredentials(customerId, customerSecret, new QRPayment.KAPI.IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR cancel request with specified parameters
-        KAPI.QRCancelRequest cancelRequest = new() {
+        QRPayment.KAPI.QRCancelRequest cancelRequest = new() {
             PartnerTransactionUid = "PARTNERTEST0006",
             PartnerId = "PTR1051673",
             PartnerSecret = "d4bded59200547bc85903574a293831b",
@@ -275,8 +276,8 @@ public class QRPaymentTest {
         };
 
         // Perform QR cancellation
-        KAPI.QRCancelResponse result =
-            await KAPI.CancelQR(cancelRequest, credentials.AccessToken, new KAPI.IRequestMode.Test("QR008"));
+        QRPayment.KAPI.QRCancelResponse result =
+            await QRPayment.KAPI.CancelQR(cancelRequest, credentials.AccessToken, new QRPayment.KAPI.IRequestMode.Test("QR008"));
 
         // Log the response
         _outputHelper.WriteLine(

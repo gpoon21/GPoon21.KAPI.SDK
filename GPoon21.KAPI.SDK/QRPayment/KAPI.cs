@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace GPoon21.KAPI.SDK;
+namespace GPoon21.KAPI.SDK.QRPayment;
 
 public static partial class KAPI {
 

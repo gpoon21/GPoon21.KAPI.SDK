@@ -1,9 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace GPoon21.KAPI.SDK;
+namespace GPoon21.KAPI.SDK.QRPayment;
 
 public static partial class KAPI {
     public class CustomerInfo {
