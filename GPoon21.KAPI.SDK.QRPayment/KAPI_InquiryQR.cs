@@ -54,7 +54,7 @@ public static partial class KAPI {
             };
         }
     }
-    
+
 
     public class QRInquiryResponse {
         [JsonPropertyName("partnerTxnUid")]
@@ -133,7 +133,6 @@ public static partial class KAPI {
         QRInquiryRequest request,
         string accessToken,
         IRequestMode? requestMode = null) {
-        using HttpClient httpClient = new();
         const string apiUrl = "https://openapi-sandbox.kasikornbank.com/v1/qrpayment/v4/inquiry";
 
         // Create HTTP request
@@ -149,15 +148,7 @@ public static partial class KAPI {
         string jsonContent = JsonSerializer.Serialize(serializableRequest);
         httpRequest.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        // Send request
-        HttpResponseMessage response = await httpClient.SendAsync(httpRequest);
-        string responseBody = await response.Content.ReadAsStringAsync();
-
-        if (!response.IsSuccessStatusCode) {
-            throw new ApplicationException(
-                $"Failed to inquire QR payment status. Status: {response.StatusCode}, Response: {responseBody}");
-        }
-
-        return JsonSerializer.Deserialize<QRInquiryResponse>(responseBody)!;
+        // Send a request using SendRequestAsync
+        return await SendRequestAsync<QRInquiryResponse>(httpRequest);
     }
 }
