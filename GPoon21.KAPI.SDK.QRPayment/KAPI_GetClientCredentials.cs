@@ -36,20 +36,20 @@ public static partial class KAPI {
         UriBuilder builder = new(requestMode.BaseUrl);
         builder.Path = "v2/oauth/token";
 
-        // Step 1: Create a Basic Authorization header value
+        // Create a Basic Authorization header value
         string credentials = $"{consumerId}:{consumerSecret}";
         string base64Credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
 
-        // Step 2: Create an HTTP request
+        // Create an HTTP request
         HttpRequestMessage request = new(HttpMethod.Post, builder.ToString());
         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
         requestMode.Modify(request.Headers);
 
-        // Step 3: Set form body
+        // Set form body
         request.Content = new StringContent("grant_type=client_credentials", Encoding.UTF8,
             "application/x-www-form-urlencoded");
 
-        // Step 4: Send a request using SendRequestAsync
+        // Send a request using SendRequestAsync
         return await SendRequestAsync<CustomerInfo>(request);
     }
 }
