@@ -457,4 +457,42 @@ public class QRPaymentTest {
         Assert.Equal(voidRequest.PartnerId, result.PartnerId);
     }
 
+    [Fact]
+    public async Task VoidQR_NotPaidStatus_Success() {
+        // Get required credentials
+        string? customerId = Environment.GetEnvironmentVariable(nameof(customerId));
+        Assert.NotNull(customerId);
+        string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
+        Assert.NotNull(customerSecret);
+
+        // Get an access token
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new KBankQR.IRequestMode.Test("OAUTH2"));
+        Assert.NotNull(credentials.AccessToken);
+
+        // Create a QR void request with specified parameters from the exercise
+        KBankQR.QRVoidRequest voidRequest = new() {
+            PartnerTransactionUid = "PARTNERTEST0010",
+            PartnerId = "PTR1051673",
+            PartnerSecret = "d4bded59200547bc85903574a293831b",
+            MerchantId = "KB102057149704",
+            OriginalPartnerTransactionUid = "PARTNERTEST0017"
+        };
+
+        // Perform QR void operation
+        KBankQR.QRVoidResponse result =
+            await KBankQR.VoidPayment(voidRequest, credentials.AccessToken,
+                new KBankQR.IRequestMode.Test("QR014"));
+
+        // Log the response
+        _outputHelper.WriteLine(
+            JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
+
+        // Verify response
+        Assert.NotNull(result);
+        Assert.Equal(voidRequest.PartnerTransactionUid, result.PartnerTransactionUid);
+        Assert.Equal(voidRequest.PartnerId, result.PartnerId);
+    }
+
 }
