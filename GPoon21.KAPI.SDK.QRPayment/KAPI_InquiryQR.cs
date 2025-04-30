@@ -133,10 +133,13 @@ public static partial class KAPI {
         QRInquiryRequest request,
         string accessToken,
         IRequestMode requestMode) {
-        const string apiUrl = "https://openapi-sandbox.kasikornbank.com/v1/qrpayment/v4/inquiry";
 
-        // Create HTTP request
-        HttpRequestMessage httpRequest = new(HttpMethod.Post, apiUrl);
+        // Build URL using requestMode.BaseUrl
+        UriBuilder builder = new(requestMode.BaseUrl);
+        builder.Path = "v1/qrpayment/v4/inquiry";
+
+        // Create an HTTP request with the built URL
+        HttpRequestMessage httpRequest = new(HttpMethod.Post, builder.ToString());
         httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         requestMode.Modify(httpRequest.Headers);
 
