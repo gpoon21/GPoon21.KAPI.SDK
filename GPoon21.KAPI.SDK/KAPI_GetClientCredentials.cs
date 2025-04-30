@@ -40,11 +40,11 @@ public static partial class KAPI {
         // OAuth token endpoint
         string tokenUrl = "https://openapi-sandbox.kasikornbank.com/v2/oauth/token";
 
-        // Step 1: Create Basic Authorization header value
+        // Step 1: Create a Basic Authorization header value
         string credentials = $"{consumerId}:{consumerSecret}";
         string base64Credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
 
-        // Step 2: Create HTTP request
+        // Step 2: Create an HTTP request
         HttpRequestMessage request = new(HttpMethod.Post, tokenUrl);
         request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64Credentials);
         headerModifier ??= new IHeaderMode.Default();
@@ -54,7 +54,7 @@ public static partial class KAPI {
         request.Content = new StringContent("grant_type=client_credentials", Encoding.UTF8,
             "application/x-www-form-urlencoded");
 
-        // Step 4: Send request
+        // Step 4: Send a request
         HttpResponseMessage response = await httpClient.SendAsync(request);
         string responseBody = await response.Content.ReadAsStringAsync();
 
