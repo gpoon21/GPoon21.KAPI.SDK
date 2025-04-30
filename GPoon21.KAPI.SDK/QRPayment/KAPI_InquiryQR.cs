@@ -129,7 +129,7 @@ public static partial class KApi {
     /// <summary>
     /// API documentation: https://openapi-sandbox.kasikornbank.com/v1/qrpayment/v4/inquiry
     /// </summary>
-    public static async Task<QRInquiryResponse> InquiryQR(
+    public static async Task<QRInquiryResponse> InquiryPayment(
         QRInquiryRequest request,
         string accessToken,
         IRequestMode requestMode) {

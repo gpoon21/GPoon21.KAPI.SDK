@@ -138,7 +138,7 @@ public class QRPaymentTest {
 
         // Perform QR inquiry
         KApi.QRInquiryResponse result =
-            await KApi.InquiryQR(inquiryRequest, credentials.AccessToken,
+            await KApi.InquiryPayment(inquiryRequest, credentials.AccessToken,
                 new KApi.IRequestMode.Test("QR004"));
 
         // Log the response
@@ -176,7 +176,7 @@ public class QRPaymentTest {
 
         // Perform QR inquiry with a specified environment
         KApi.QRInquiryResponse result =
-            await KApi.InquiryQR(inquiryRequest, credentials.AccessToken,
+            await KApi.InquiryPayment(inquiryRequest, credentials.AccessToken,
                 new KApi.IRequestMode.Test("QR005"));
 
         // Log the response
@@ -214,7 +214,7 @@ public class QRPaymentTest {
 
         // Perform QR inquiry with a specified environment
         KApi.QRInquiryResponse result =
-            await KApi.InquiryQR(inquiryRequest, credentials.AccessToken,
+            await KApi.InquiryPayment(inquiryRequest, credentials.AccessToken,
                 new KApi.IRequestMode.Test("QR006"));
 
         // Log the response
@@ -252,7 +252,7 @@ public class QRPaymentTest {
 
         // Perform QR inquiry with a specified environment
         KApi.QRInquiryResponse result =
-            await KApi.InquiryQR(inquiryRequest, credentials.AccessToken,
+            await KApi.InquiryPayment(inquiryRequest, credentials.AccessToken,
                 new KApi.IRequestMode.Test("QR007"));
 
         // Log the response

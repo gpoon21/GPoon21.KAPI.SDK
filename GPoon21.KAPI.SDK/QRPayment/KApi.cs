@@ -27,7 +27,7 @@ public static partial class KApi {
         public Task<QRInquiryResponse> InquiryQR(
             QRInquiryRequest request,
             IRequestMode headerModifier) {
-            return KApi.InquiryQR(request, _customerInfo.AccessToken, headerModifier);
+            return KApi.InquiryPayment(request, _customerInfo.AccessToken, headerModifier);
         }
 
     }
