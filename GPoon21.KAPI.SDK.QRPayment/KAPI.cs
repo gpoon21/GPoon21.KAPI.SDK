@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace GPoon21.KAPI.SDK;
 
@@ -31,6 +32,22 @@ public static partial class KAPI {
 
     }
 
+    private static async Task<T> SendRequestAsync<T>(HttpRequestMessage request) {
+        using HttpClient httpClient = new();
+        
+        // Step 4: Send a request
+        HttpResponseMessage response = await httpClient.SendAsync(request);
+        string responseBody = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode) {
+            throw new ApplicationException(
+                $"Failed to get token. Status: {response.StatusCode}, Response: {responseBody}");
+        }
+
+        return JsonSerializer.Deserialize<T>(responseBody)!;
+    }
+
+
     public interface IRequestMode {
 
         public void Modify(HttpRequestHeaders headers);
@@ -55,7 +72,6 @@ public static partial class KAPI {
             public void Modify(HttpRequestHeaders headers) { }
         }
     }
-    
-    
-    
+
+
 }
