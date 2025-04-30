@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Text.Json;
 using GPoon21.KAPI.SDK.QRPayment;
 using Xunit.Abstractions;
 
@@ -569,6 +571,43 @@ public class QRPaymentTest {
         Assert.NotNull(result);
         Assert.Equal(voidRequest.PartnerTransactionUid, result.PartnerTransactionUid);
         Assert.Equal(voidRequest.PartnerId, result.PartnerId);
+    }
+
+    [Fact]
+    public async Task TestTwoWaySSL_WithCertificate_Success() {
+        // Get required credentials
+        string? customerId = Environment.GetEnvironmentVariable(nameof(customerId));
+        Assert.NotNull(customerId);
+        string? customerSecret = Environment.GetEnvironmentVariable(nameof(customerSecret));
+        Assert.NotNull(customerSecret);
+
+        // Get PEM certificate from environment variable
+        string? pemData = Environment.GetEnvironmentVariable("SSL_CERTIFICATE_PEM");
+        Assert.NotNull(pemData);
+
+        // Create a certificate from PEM
+        X509Certificate2 certificate = X509CertificateLoader.LoadCertificate(Encoding.UTF8.GetBytes(pemData));
+        Assert.True(certificate.HasPrivateKey, "Certificate must have a private key for two-way SSL authentication");
+
+        // Get an access token
+        KBankQR.CustomerInfo credentials =
+            await KBankQR.GetClientCredentials(customerId, customerSecret,
+                new IRequestMode.Test("OAUTH2"));
+        Assert.NotNull(credentials.AccessToken);
+
+        // Test SSL authentication
+        KBank.SslTestResponse result =
+            await KBank.TestTwoWaySslAuthentication(credentials.AccessToken, certificate);
+
+        // Log the response
+        _outputHelper.WriteLine(
+            JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
+
+        // Verify response
+        Assert.NotNull(result);
+        Assert.NotNull(result.Status);
+        Assert.NotNull(result.CertificateInfo);
+        Assert.NotNull(result.CertificateInfo.Subject);
     }
 
 }
