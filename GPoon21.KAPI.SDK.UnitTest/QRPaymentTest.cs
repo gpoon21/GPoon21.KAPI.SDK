@@ -22,7 +22,7 @@ public class QRPaymentTest {
 
         KBankQR.CustomerInfo result =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
         Assert.NotNull(result);
     }
@@ -38,7 +38,7 @@ public class QRPaymentTest {
         // Get required environment variables
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR request with specified parameters
@@ -59,7 +59,7 @@ public class QRPaymentTest {
         // Request QR code
         KBankQR.QRResponse result =
             await KBankQR.RequestQR(qrRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR002"));
+                new IRequestMode.Test("QR002"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -81,7 +81,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR request with specified parameters
@@ -102,7 +102,7 @@ public class QRPaymentTest {
         // Request QR code with a specified environment
         KBankQR.QRResponse result =
             await KBankQR.RequestQR(qrRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR003"));
+                new IRequestMode.Test("QR003"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -124,7 +124,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
@@ -139,7 +139,7 @@ public class QRPaymentTest {
         // Perform QR inquiry
         KBankQR.QRInquiryResponse result =
             await KBankQR.InquiryPayment(inquiryRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR004"));
+                new IRequestMode.Test("QR004"));
 
         // Log the response
         _outputHelper.WriteLine(JsonSerializer.Serialize(result, new JsonSerializerOptions() { WriteIndented = true }));
@@ -162,7 +162,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
@@ -177,7 +177,7 @@ public class QRPaymentTest {
         // Perform QR inquiry with a specified environment
         KBankQR.QRInquiryResponse result =
             await KBankQR.InquiryPayment(inquiryRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR005"));
+                new IRequestMode.Test("QR005"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -200,7 +200,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
@@ -215,7 +215,7 @@ public class QRPaymentTest {
         // Perform QR inquiry with a specified environment
         KBankQR.QRInquiryResponse result =
             await KBankQR.InquiryPayment(inquiryRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR006"));
+                new IRequestMode.Test("QR006"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -238,7 +238,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR inquiry request with specified parameters
@@ -253,7 +253,7 @@ public class QRPaymentTest {
         // Perform QR inquiry with a specified environment
         KBankQR.QRInquiryResponse result =
             await KBankQR.InquiryPayment(inquiryRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR007"));
+                new IRequestMode.Test("QR007"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -276,7 +276,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR cancel request with specified parameters
@@ -291,7 +291,7 @@ public class QRPaymentTest {
         // Perform QR cancellation
         KBankQR.QRCancelResponse result =
             await KBankQR.CancelQR(cancelRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR008"));
+                new IRequestMode.Test("QR008"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -314,7 +314,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR cancel request with specified parameters
@@ -329,7 +329,7 @@ public class QRPaymentTest {
         // Perform QR cancellation
         KBankQR.QRCancelResponse result =
             await KBankQR.CancelQR(cancelRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR010"));
+                new IRequestMode.Test("QR010"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -352,7 +352,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR cancel request with specified parameters from the exercise
@@ -367,7 +367,7 @@ public class QRPaymentTest {
         // Perform QR cancellation
         KBankQR.QRCancelResponse result =
             await KBankQR.CancelQR(cancelRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR011"));
+                new IRequestMode.Test("QR011"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -391,7 +391,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR void request with specified parameters from the exercise
@@ -406,7 +406,7 @@ public class QRPaymentTest {
         // Perform QR void operation
         KBankQR.QRVoidResponse result =
             await KBankQR.VoidPayment(voidRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR012"));
+                new IRequestMode.Test("QR012"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -430,7 +430,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR void request with specified parameters from the exercise
@@ -445,7 +445,7 @@ public class QRPaymentTest {
         // Perform QR void operation
         KBankQR.QRVoidResponse result =
             await KBankQR.VoidPayment(voidRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR013"));
+                new IRequestMode.Test("QR013"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -468,7 +468,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR void request with specified parameters from the exercise
@@ -483,7 +483,7 @@ public class QRPaymentTest {
         // Perform QR void operation
         KBankQR.QRVoidResponse result =
             await KBankQR.VoidPayment(voidRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR014"));
+                new IRequestMode.Test("QR014"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -506,7 +506,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR void request with specified parameters from the exercise
@@ -521,7 +521,7 @@ public class QRPaymentTest {
         // Perform QR void operation
         KBankQR.QRVoidResponse result =
             await KBankQR.VoidPayment(voidRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR015"));
+                new IRequestMode.Test("QR015"));
 
         // Log the response
         _outputHelper.WriteLine(
@@ -544,7 +544,7 @@ public class QRPaymentTest {
         // Get an access token
         KBankQR.CustomerInfo credentials =
             await KBankQR.GetClientCredentials(customerId, customerSecret,
-                new KBankQR.IRequestMode.Test("OAUTH2"));
+                new IRequestMode.Test("OAUTH2"));
         Assert.NotNull(credentials.AccessToken);
 
         // Create a QR void request with specified parameters from the exercise
@@ -559,7 +559,7 @@ public class QRPaymentTest {
         // Perform QR void operation
         KBankQR.QRVoidResponse result =
             await KBankQR.VoidPayment(voidRequest, credentials.AccessToken,
-                new KBankQR.IRequestMode.Test("QR016"));
+                new IRequestMode.Test("QR016"));
 
         // Log the response
         _outputHelper.WriteLine(
