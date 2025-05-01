@@ -10,7 +10,10 @@ This code currently have not been tested againist a real API outside of the sand
 ## Usage/Examples
 Call actual API with KBankQR.Client
 ```csharp
-KBankQR.Client client = await KBankQR.Client.CreateAsync(customerId, customerSecret, new IRequestMode.Test());
+IRequestMode.Default requestMode = new() {
+    BaseUrl = "{URL}",
+};
+KBankQR.Client client = await KBankQR.Client.CreateAsync(customerId, customerSecret, requestMode);
 // Create a QR request with specified parameters
 KBankQR.QRRequest qrRequest = new() {
     PartnerTransactionUid = "{parameter}",
@@ -24,9 +27,6 @@ KBankQR.QRRequest qrRequest = new() {
     Reference2 = "{parameter}",
     Reference3 = "{parameter}",
     Reference4 = "{parameter}",
-};
-IRequestMode.Default requestMode = new() {
-    BaseUrl = "{URL}",
 };
 // Request QR code
 KBankQR.QRResponse result =  await client.RequestQR(qrRequest, requestMode);
